@@ -27,7 +27,7 @@ export default defineConfigWithVueTs(
   skipFormatting,
   {
     // Unplugin router components
-    files: ['src/pages/**/*.vue'],
+    files: ['src/pages/**/*.vue', 'src/components/**/*.vue'],
     rules: {
       'vue/multi-word-component-names': 'off',
     },
