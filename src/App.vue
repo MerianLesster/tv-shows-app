@@ -2,8 +2,10 @@
   <div class="min-h-screen flex flex-col">
     <Toast />
     <!-- Navbar -->
-    <header class="bg-gray-900 text-white px-4 py-3 flex items-center justify-between shadow-md">
-      <div class="flex items-center gap-8">
+    <header
+      class="bg-gray-900 text-white px-4 py-3 flex sm:flex-row gap-4 items-center justify-between flex-col shadow-md"
+    >
+      <div class="flex items-center sm:gap-8 sm:flex-row flex-col gap-4">
         <div class="flex items-center gap-2">
           <img src="/favicon.ico" alt="logo" class="h-8" />
           <p class="text-xl font-bold">TV Shows</p>
