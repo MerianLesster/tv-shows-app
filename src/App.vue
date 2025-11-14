@@ -1,85 +1,61 @@
 <template>
-  <div class="card">
-    <Menubar :model="items">
-      <template #start>
-        <div class="flex gap-2 items-center">
-          <img src="/favicon.ico" alt="logo" class="mr-2 h-8" />
+  <div class="min-h-screen flex flex-col">
+    <Toast />
+    <!-- Navbar -->
+    <header class="bg-gray-900 text-white px-4 py-3 flex items-center justify-between shadow-md">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-2">
+          <img src="/favicon.ico" alt="logo" class="h-8" />
           <p class="text-xl font-bold">TV Shows</p>
         </div>
-      </template>
-      <template #item="{ item, props, hasSubmenu, root }">
-        <a class="flex items-center" v-bind="props.action">
-          <span>{{ item.label }}</span>
-          <Badge
-            v-if="item.badge"
-            :class="{ 'ml-auto': !root, 'ml-2': root }"
-            :value="item.badge"
-          />
-          <span
-            v-if="item.shortcut"
-            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-            >{{ item.shortcut }}</span
+
+        <nav class="flex gap-6">
+          <RouterLink
+            to="/"
+            class="hover:text-primary transition-colors duration-200 border rounded-xl p-2 flex items-center gap-1 w-32 justify-center"
+            active-class="text-primary font-semibold"
           >
-          <i
-            v-if="hasSubmenu"
-            :class="[
-              'pi pi-angle-down ml-auto',
-              { 'pi-angle-down': root, 'pi-angle-right': !root },
-            ]"
-          ></i>
-        </a>
-      </template>
-      <template #end>
-        <div class="flex items-center gap-2">
-          <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
-          <Avatar
-            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-            shape="circle"
-          />
-        </div>
-      </template>
-    </Menubar>
-    <RouterView />
+            Home
+          </RouterLink>
+          <RouterLink
+            to="/favorites"
+            class="hover:text-primary transition-colors duration-200 border rounded-xl p-2 flex items-center gap-1 w-32 justify-center"
+            active-class="text-primary font-semibold"
+          >
+            <i class="pi pi-heart-fill mr-1 text-favourite-500"></i>
+            <span>Favorites</span>
+          </RouterLink>
+        </nav>
+      </div>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-3">
+        <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
+        <img
+          src="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+          alt="User"
+          class="h-8 w-8 rounded-full"
+        />
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-1 p-4">
+      <RouterView />
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import Menubar from 'primevue/menubar'
-import Badge from 'primevue/badge'
+import { RouterView, RouterLink } from 'vue-router'
 import InputText from 'primevue/inputtext'
-import Avatar from 'primevue/avatar'
-import { ref } from 'vue'
+import Toast from 'primevue/toast'
+import { useMovies } from '@/composable/useMovies'
+import { onMounted } from 'vue'
 
-const items = ref([
-  {
-    label: 'Home',
-    icon: 'pi pi-home',
-  },
-  {
-    label: 'Projects',
-    icon: 'pi pi-search',
-    badge: 3,
-    items: [
-      {
-        label: 'Core',
-        icon: 'pi pi-bolt',
-        shortcut: '⌘+S',
-      },
-      {
-        label: 'Blocks',
-        icon: 'pi pi-server',
-        shortcut: '⌘+B',
-      },
-      {
-        separator: true,
-      },
-      {
-        label: 'UI Kit',
-        icon: 'pi pi-pencil',
-        shortcut: '⌘+U',
-      },
-    ],
-  },
-])
+const { fetchMovies } = useMovies()
+
+onMounted(() => {
+  fetchMovies()
+})
 </script>

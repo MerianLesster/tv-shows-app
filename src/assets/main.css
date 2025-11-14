@@ -2,6 +2,10 @@
 @import 'tailwindcss-primeui';
 @import './base.css';
 
+@theme {
+  --color-favourite-500: #ff6467;
+}
+
 #app {
   padding: 2rem;
   height: 100vh;

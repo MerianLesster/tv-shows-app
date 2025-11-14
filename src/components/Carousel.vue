@@ -11,8 +11,18 @@
       <template #item="{ data }">
         <div class="w-full pr-2 cursor-pointer">
           <div
-            class="relative rounded-xl overflow-hidden transform transition-transform duration-300 hover:scale-90"
+            class="relative rounded-xl overflow-hidden transform transition-transform duration-300 hover:scale-95"
           >
+            <button
+              class="absolute top-1.5 left-1.5 z-10 bg-black/70 p-2 h-8 w-8 rounded-full text-white transition-colors flex items-center justify-center"
+              @click="onFavoriteClick(data)"
+            >
+              <i
+                class="pi hover:text-favourite-500 text-lg"
+                :class="[data.isFavorite ? 'pi-heart-fill text-favourite-500' : 'pi-heart']"
+              >
+              </i>
+            </button>
             <img :src="data.image.medium" :alt="data.name" class="w-full object-cover" />
             <div
               class="flex items-center gap-1 absolute top-1.5 right-1.5 bg-black/70 px-2 py-1 rounded-2xl"
@@ -48,10 +58,25 @@
 import { ref } from 'vue'
 import Carousel from 'primevue/carousel'
 import type { IMovies } from '@/types/index.ts'
+import { useMovies } from '@/composable/useMovies'
+import { useToast } from 'primevue/usetoast'
 
 defineProps<{
   movies: IMovies[]
 }>()
+
+const { addToFavorites } = useMovies()
+const toast = useToast()
+
+const onFavoriteClick = (movie: IMovies) => {
+  addToFavorites(movie.id)
+  toast.add({
+    severity: 'success',
+    summary: 'Success',
+    detail: `${movie.name} added to favorites!`,
+    life: 2000,
+  })
+}
 
 const responsiveOptions = ref([
   {
@@ -91,9 +116,9 @@ const responsiveOptions = ref([
   align-self: auto;
   border-radius: 12px !important;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  color: var(--p-carousel-indicator-active-background) !important;
+  color: var(--p-primary-color) !important;
   background-color: white !important;
-  border: 1px solid var(--p-carousel-indicator-active-background) !important;
+  border: 1px solid var(--p-primary-color) !important;
 }
 :deep(.p-carousel-next-button) {
   order: 3;
@@ -101,7 +126,7 @@ const responsiveOptions = ref([
   border-radius: 12px !important;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   margin-right: 2px;
-  background-color: var(--p-carousel-indicator-active-background) !important;
+  background-color: var(--p-primary-color) !important;
   color: white !important;
 }
 </style>
