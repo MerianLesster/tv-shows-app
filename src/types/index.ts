@@ -1,4 +1,4 @@
-interface IMovies {
+interface IMovie {
   id: number
   url: string
   name: string
@@ -81,4 +81,4 @@ interface IMovies {
 
 type IGenres = 'Thriller' | 'Horror' | 'Romance' | 'Action'
 
-export type { IMovies, IGenres }
+export type { IMovie, IGenres }

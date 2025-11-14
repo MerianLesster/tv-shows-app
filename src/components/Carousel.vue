@@ -9,13 +9,13 @@
       :showIndicators="false"
     >
       <template #item="{ data }">
-        <div class="w-full pr-2 cursor-pointer">
+        <div class="w-full pr-2 cursor-pointer" @click="router.push('/' + data.id)">
           <div
             class="relative rounded-xl overflow-hidden transform transition-transform duration-300 hover:scale-95"
           >
             <button
               class="absolute top-1.5 left-1.5 z-10 bg-black/70 p-2 h-8 w-8 rounded-full text-white transition-colors flex items-center justify-center"
-              @click="onFavoriteClick(data)"
+              @click="onFavoriteClick($event, data)"
             >
               <i
                 class="pi hover:text-favourite-500 text-lg"
@@ -26,6 +26,7 @@
             <img :src="data.image.medium" :alt="data.name" class="w-full object-cover" />
             <div
               class="flex items-center gap-1 absolute top-1.5 right-1.5 bg-black/70 px-2 py-1 rounded-2xl"
+              v-if="data.rating.average"
             >
               <i class="pi pi-star-fill text-yellow-400 text-sm"></i>
               <span class="text-sm font-bold text-white">
@@ -57,16 +58,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Carousel from 'primevue/carousel'
-import type { IMovies } from '@/types/index.ts'
+import type { IMovie } from '@/types/index.ts'
 import { useMovies } from '@/store/useMovies'
+import { router } from '@/router'
 
 defineProps<{
-  movies: IMovies[]
+  movies: IMovie[]
 }>()
 
 const { addOrRemoveFavorites } = useMovies()
 
-const onFavoriteClick = (movie: IMovies) => {
+const onFavoriteClick = (event: Event, movie: IMovie) => {
+  event.stopPropagation()
   addOrRemoveFavorites(movie)
 }
 

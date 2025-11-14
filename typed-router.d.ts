@@ -30,6 +30,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/[id]/': RouteRecordInfo<
+      '/[id]/',
+      '/:id',
+      { id: ParamValue<true> },
+      { id: ParamValue<false> },
+      | never
+    >,
     '/favorites/': RouteRecordInfo<
       '/favorites/',
       '/favorites',
@@ -53,6 +60,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.vue': {
       routes:
         | '/'
+      views:
+        | never
+    }
+    'src/pages/[id]/index.vue': {
+      routes:
+        | '/[id]/'
       views:
         | never
     }

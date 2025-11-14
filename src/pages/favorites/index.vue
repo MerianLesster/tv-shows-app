@@ -1,12 +1,9 @@
 <template>
-  <div class="pt-4">
-    <div class="py-5 px-8 bg-primary-600 rounded-2xl flex flex-col gap-3 mb-6">
-      <h1 class="text-4xl text-primary-100 font-bold">Favorites</h1>
-      <p class="text-sm text-primary-100 font-bold">
-        Your saved shows live here. Revisit your favorites anytime and pick up right where you left
-        off.
-      </p>
-    </div>
+  <div>
+    <Header
+      title="Favorites"
+      description="Your saved shows live here. Revisit your favorites anytime and pick up right where you left off."
+    />
     <template v-for="genre in favoriteGenres" :key="genre.type">
       <div class="p-5">
         <p class="text-2xl mb-3 text-primary font-extrabold">{{ genre.type }}</p>
@@ -21,6 +18,7 @@
 
 <script setup lang="ts">
 import Carousel from '@/components/Carousel.vue'
+import Header from '@/components/Header.vue'
 import { useMovies } from '@/store/useMovies'
 import { storeToRefs } from 'pinia'
 import { watchEffect } from 'vue'

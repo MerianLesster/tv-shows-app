@@ -32,13 +32,19 @@
 
       <!-- Right Controls -->
       <div class="flex items-center gap-3">
-        <InputText
-          placeholder="Search"
-          type="text"
-          class="w-32 sm:w-auto"
-          v-model="searchQuery"
-          @input="debouncedSearch(searchQuery)"
-        />
+        <InputGroup>
+          <InputText
+            placeholder="Search"
+            type="text"
+            class="w-32 sm:w-auto"
+            v-model="searchQuery"
+            @input="debouncedSearch(searchQuery)"
+          />
+          <InputGroupAddon>
+            <Button icon="pi pi-times" @click="clearSearch" severity="secondary" />
+          </InputGroupAddon>
+        </InputGroup>
+
         <img
           src="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
           alt="User"
@@ -60,6 +66,9 @@ import InputText from 'primevue/inputtext'
 import Toast from 'primevue/toast'
 import { useMovies } from '@/store/useMovies'
 import { onMounted, ref } from 'vue'
+import InputGroup from 'primevue/inputgroup'
+import InputGroupAddon from 'primevue/inputgroupaddon'
+import Button from 'primevue/button'
 import { useDebounce } from './composables/useDebounce'
 
 const { fetchMovies, searchMovies } = useMovies()
@@ -68,4 +77,9 @@ const debouncedSearch = useDebounce(searchMovies, 500)
 onMounted(() => {
   fetchMovies()
 })
+
+const clearSearch = () => {
+  searchQuery.value = ''
+  searchMovies('')
+}
 </script>
