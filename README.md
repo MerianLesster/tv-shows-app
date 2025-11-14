@@ -1,6 +1,6 @@
 # tv-shows-app
 
-This template should help get you started developing with Vue 3 in Vite.
+Node version: `v22.15.0`
 
 ## Recommended IDE Setup
 
@@ -9,7 +9,7 @@ This template should help get you started developing with Vue 3 in Vite.
 ## Recommended Browser Setup
 
 - Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
   - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
 - Firefox:
   - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
@@ -19,9 +19,27 @@ This template should help get you started developing with Vue 3 in Vite.
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Customize configuration
+### Project dependancies
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+1. https://primevue.org/ - component library
+2. https://primevue.org/icons/ - icons library
+3. https://tailwindcss.com/ - utility first css library
+4. https://uvr.esm.is/ - typed, file-based routing
+5. https://pinia.vuejs.org/ - state management system
+
+## TV Show App – Architectural Decisions
+
+### Routing
+
+The project uses **file-based routing** via the [`unplugin-vue-router`](https://github.com/vuejs/unplugin-vue-router) package. This approach automatically generates routes from the file structure, improving code maintainability and making it easier to navigate, edit, and debug. Additionally, it provides **full TypeScript typing**, reducing potential runtime errors.
+
+### UI Framework
+
+For the UI, I chose **PrimeVue** alongside **Tailwind CSS**. This combination enables rapid development of visually appealing and responsive components, allowing for faster delivery of a polished interface.
+
+### Key Features
+
+- **Add to Favorites / Remove from Favorites**: Users can mark TV shows as favorites and manage them, enhancing personalization and engagement.
 
 ## Project Setup
 
