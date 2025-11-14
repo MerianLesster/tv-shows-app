@@ -12,15 +12,15 @@
         <nav class="flex gap-6">
           <RouterLink
             to="/"
-            class="hover:text-primary transition-colors duration-200 border rounded-xl p-2 flex items-center gap-1 w-32 justify-center"
-            active-class="text-primary font-semibold"
+            class="hover:text-primary hover:bg-white border rounded-xl p-2 flex items-center gap-1 w-32 justify-center"
+            active-class="text-white border-none bg-primary hover:text-primary hover:bg-white font-semibold"
           >
             Home
           </RouterLink>
           <RouterLink
             to="/favorites"
-            class="hover:text-primary transition-colors duration-200 border rounded-xl p-2 flex items-center gap-1 w-32 justify-center"
-            active-class="text-primary font-semibold"
+            class="hover:text-primary hover:bg-white border rounded-xl p-2 flex items-center gap-1 w-32 justify-center"
+            active-class="text-white border-none bg-primary hover:text-primary hover:bg-white font-semibold"
           >
             <i class="pi pi-heart-fill mr-1 text-favourite-500"></i>
             <span>Favorites</span>
@@ -50,7 +50,7 @@
 import { RouterView, RouterLink } from 'vue-router'
 import InputText from 'primevue/inputtext'
 import Toast from 'primevue/toast'
-import { useMovies } from '@/composable/useMovies'
+import { useMovies } from '@/store/useMovies'
 import { onMounted } from 'vue'
 
 const { fetchMovies } = useMovies()

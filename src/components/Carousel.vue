@@ -58,24 +58,16 @@
 import { ref } from 'vue'
 import Carousel from 'primevue/carousel'
 import type { IMovies } from '@/types/index.ts'
-import { useMovies } from '@/composable/useMovies'
-import { useToast } from 'primevue/usetoast'
+import { useMovies } from '@/store/useMovies'
 
 defineProps<{
   movies: IMovies[]
 }>()
 
-const { addToFavorites } = useMovies()
-const toast = useToast()
+const { addOrRemoveFavorites } = useMovies()
 
 const onFavoriteClick = (movie: IMovies) => {
-  addToFavorites(movie.id)
-  toast.add({
-    severity: 'success',
-    summary: 'Success',
-    detail: `${movie.name} added to favorites!`,
-    life: 2000,
-  })
+  addOrRemoveFavorites(movie)
 }
 
 const responsiveOptions = ref([
@@ -110,6 +102,7 @@ const responsiveOptions = ref([
 <style scoped>
 :deep(.p-carousel-viewport) {
   order: 1;
+  width: auto !important;
 }
 :deep(.p-carousel-prev-button) {
   order: 2;

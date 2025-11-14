@@ -12,6 +12,8 @@ interface IMovies {
   ended: string | null
   officialSite: string | null
 
+  isFavorite: boolean
+
   schedule: {
     time: string
     days: string[]

@@ -1,11 +1,15 @@
 import { ref } from 'vue'
 import type { IMovies, IGenres } from '@/types/index.ts'
 import { defineStore } from 'pinia'
+import { useToast } from 'primevue/usetoast'
 
 const genreTypes: IGenres[] = ['Thriller', 'Horror', 'Romance', 'Action']
 export const useMovies = defineStore('useMovies', () => {
+  const toast = useToast()
+
   const movies = ref<IMovies[]>([])
-  const genres = ref<{ type: IGenres; movies: (IMovies & { isFavorite: boolean })[] }[]>([])
+  const genres = ref<{ type: IGenres; movies: IMovies[] }[]>([])
+  const favoriteGenres = ref<{ type: IGenres; movies: IMovies[] }[]>([])
 
   const fetchMovies = async () => {
     try {
@@ -32,20 +36,37 @@ export const useMovies = defineStore('useMovies', () => {
     }
   }
 
-  const addToFavorites = (movieId: number) => {
+  const addOrRemoveFavorites = (movie: IMovies) => {
+    const isFavorited = movie.isFavorite
+    if (isFavorited) {
+      toast.add({
+        severity: 'info',
+        summary: 'Removed',
+        detail: `${movie.name} removed from favorites!`,
+        life: 2000,
+      })
+    } else {
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: `${movie.name} added to favorites!`,
+        life: 2000,
+      })
+    }
     genres.value.forEach((genre) => {
-      genre.movies = genre.movies.map((movie) =>
-        movie.id === movieId ? { ...movie, isFavorite: true } : movie,
+      genre.movies = genre.movies.map((m) =>
+        m.id === movie.id ? { ...m, isFavorite: !m.isFavorite } : m,
       )
     })
   }
 
   const showFavorites = () => {
-    return genres.value.map((genre) => ({
+    favoriteGenres.value = genres.value.map((genre) => ({
       type: genre.type,
       movies: genre.movies.filter((movie) => movie.isFavorite),
     }))
+    return favoriteGenres.value
   }
 
-  return { fetchMovies, movies, genres, addToFavorites, showFavorites }
+  return { fetchMovies, movies, genres, favoriteGenres, addOrRemoveFavorites, showFavorites }
 })

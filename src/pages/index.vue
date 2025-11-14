@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import Carousel from '@/components/Carousel.vue'
-import { useMovies } from '@/composable/useMovies'
+import { useMovies } from '@/store/useMovies'
 import { storeToRefs } from 'pinia'
 
 const { genres } = storeToRefs(useMovies())
