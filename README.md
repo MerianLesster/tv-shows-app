@@ -1,5 +1,11 @@
 # tv-shows-app
 
+<img width="800" height="489" alt="image" src="https://github.com/user-attachments/assets/157a0d26-4a79-4007-b1f8-5b5ccb2c5504" />
+<img width="800" height="489" alt="image" src="https://github.com/user-attachments/assets/42f79495-fc4a-4bd6-adf5-09d61da91dd1" />
+<img width="800" height="489" alt="image" src="https://github.com/user-attachments/assets/a8c491db-8492-4f5e-9468-b73eab174b3c" />
+
+
+
 Node version: `v22.15.0`
 
 ## Recommended IDE Setup
