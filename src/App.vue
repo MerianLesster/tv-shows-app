@@ -32,7 +32,13 @@
 
       <!-- Right Controls -->
       <div class="flex items-center gap-3">
-        <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
+        <InputText
+          placeholder="Search"
+          type="text"
+          class="w-32 sm:w-auto"
+          v-model="searchQuery"
+          @input="debouncedSearch(searchQuery)"
+        />
         <img
           src="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
           alt="User"
@@ -53,10 +59,12 @@ import { RouterView, RouterLink } from 'vue-router'
 import InputText from 'primevue/inputtext'
 import Toast from 'primevue/toast'
 import { useMovies } from '@/store/useMovies'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useDebounce } from './composables/useDebounce'
 
-const { fetchMovies } = useMovies()
-
+const { fetchMovies, searchMovies } = useMovies()
+const searchQuery = ref('')
+const debouncedSearch = useDebounce(searchMovies, 500)
 onMounted(() => {
   fetchMovies()
 })

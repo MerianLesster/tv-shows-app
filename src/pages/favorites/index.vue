@@ -13,6 +13,9 @@
         <Carousel :movies="genre.movies" />
       </div>
     </template>
+    <div v-if="favoriteGenres.length === 0">
+      <p class="text-center text-primary font-bold mt-12 italic">No favorites added yet.</p>
+    </div>
   </div>
 </template>
 
